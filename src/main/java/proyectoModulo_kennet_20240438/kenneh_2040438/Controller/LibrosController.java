@@ -23,7 +23,7 @@ import java.util.Map;
 public class LibrosController {
 
     @Autowired
-    LibrosService service;
+    private LibrosService service;
 
     @GetMapping("/getLibros")
     public List<LibroDTO> obtenerdatos(){

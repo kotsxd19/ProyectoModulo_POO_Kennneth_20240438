@@ -18,10 +18,10 @@ public class LibroEntity {
     @SequenceGenerator(name = "libros_sequence",sequenceName = "libros_sequence",allocationSize = 1)
     private Long id_libros;
 
-    @Column(name = "TITULO", unique = true)
+    @Column(name = "TITULO")
     private String titulo;
 
-    @Column(name = "ISBN")
+    @Column(name = "ISBN", unique = true)
     private String isbn;
 
     @Column(name = "ANIO_PUBLICADO")

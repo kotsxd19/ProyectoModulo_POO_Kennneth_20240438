@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class LibrosService {
 
     @Autowired
-    LibroRepositories repo;
+    private LibroRepositories repo;
 
     public List<LibroDTO> ObtenerLibros() {
         List<LibroEntity> Libro = repo.findAll();
