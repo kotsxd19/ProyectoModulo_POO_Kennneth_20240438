@@ -7,16 +7,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "libros")
+@Table(name = "LIBROS")
 @Getter @Setter @ToString
 @EqualsAndHashCode
 public class LibroEntity {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID_LIBROS")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "libros_sequence")
     @SequenceGenerator(name = "libros_sequence",sequenceName = "libros_sequence",allocationSize = 1)
-    private Long id;
+    private Long id_libros;
 
     @Column(name = "TITULO", unique = true)
     private String titulo;
@@ -24,12 +24,12 @@ public class LibroEntity {
     @Column(name = "ISBN")
     private String isbn;
 
-    @Column(name = "ANIO_PUBLICACION")
+    @Column(name = "ANIO_PUBLICADO")
     private int anio_publicacion;
 
     @Column(name = "GENERO")
     private int genero;
 
-    @Column(name = "AUTOR_ID")
-    private Long autor_id;
+    @Column(name = "ID")
+    private Long id;
 }

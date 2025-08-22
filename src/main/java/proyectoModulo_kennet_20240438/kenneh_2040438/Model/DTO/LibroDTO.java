@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @EqualsAndHashCode
 public class LibroDTO {
-    private Long id;
+    private Long id_libros;
 
     @NotBlank
     private String titulo;
@@ -25,5 +25,5 @@ public class LibroDTO {
     private int genero;
 
     @NotNull
-    private Long autor_id;
+    private Long id;
 }

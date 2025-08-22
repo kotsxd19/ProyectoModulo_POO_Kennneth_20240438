@@ -3,6 +3,7 @@ package proyectoModulo_kennet_20240438.kenneh_2040438.Service;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import proyectoModulo_kennet_20240438.kenneh_2040438.Entities.LibroEntity;
 import proyectoModulo_kennet_20240438.kenneh_2040438.Exceptions.ExceptionLibrosNoEncontrado;
@@ -42,31 +43,52 @@ public class LibrosService {
 
     private LibroEntity convertirAEntiry(LibroDTO json) {
         LibroEntity ENTITY = new LibroEntity();
-        ENTITY.setId(json.getId());
+        ENTITY.setId_libros(json.getId_libros());
         ENTITY.setTitulo(json.getTitulo());
         ENTITY.setIsbn(json.getIsbn());
         ENTITY.setAnio_publicacion(json.getAnio_publicacion());
         ENTITY.setGenero(json.getGenero());
-        ENTITY.setAutor_id(json.getAutor_id());
+        ENTITY.setId(json.getId());
         return ENTITY;
     }
 
-    private Object convertirADTO(LibroEntity libroEntity) {
+    private LibroDTO convertirADTO(LibroEntity libroEntity) {
         LibroDTO dto = new LibroDTO();
 
-        dto.setId(libroEntity.getId());
+        dto.setId_libros(libroEntity.getId_libros());
         dto.setTitulo(libroEntity.getTitulo());
         dto.setIsbn(libroEntity.getIsbn());
         dto.setAnio_publicacion(libroEntity.getAnio_publicacion());
         dto.setGenero(libroEntity.getGenero());
-        dto.setAutor_id(libroEntity.getAutor_id());
+        dto.setId(libroEntity.getId());
 
         return dto;
     }
 
     public boolean eliminarLibros(Long id) {
+        try {
+            LibroEntity existe = repo.findById(id).orElse(null);
+            if (existe != null){
+                repo.deleteById(id);
+                return true;
+            }else {
+                return false;
+            }
+        }catch (EmptyResultDataAccessException e){
+            throw new EmptyResultDataAccessException("No se encontro el ID:" + id + "Para eliminar", 1);
+        }
     }
 
     public LibroDTO ActualizarLibros(Long id, @Valid LibroDTO json) {
+        LibroEntity existente = repo.findById(id)
+                .orElseThrow(() -> new ExceptionLibrosNoEncontrado("no encontrado"));
+
+        existente.setTitulo(json.getTitulo());
+        existente.setIsbn(json.getIsbn());
+        existente.setAnio_publicacion(json.getAnio_publicacion());
+        existente.setGenero(json.getGenero());
+        existente.setId(json.getId());
+        LibroEntity actualizado = repo.save(existente);
+        return convertirADTO(actualizado);
     }
 }

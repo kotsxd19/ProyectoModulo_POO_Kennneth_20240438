@@ -31,22 +31,15 @@ public class LibrosController {
     }
 
     @PostMapping("/PutLibros")
-    public ResponseEntity<?> nuevosdatos(@Valid @RequestBody LibroDTO json
-    ){
+    public ResponseEntity<?> nuevosdatos(@Valid @RequestBody LibroDTO json, HttpServletRequest request
+    ) {
         try{
             LibroDTO respuesta = service.InsertarLibros(json);
-            if (respuesta == null) {
-                return ResponseEntity.badRequest().body(Map.of(
-                        "status", "Inserccion fallida",
-                        "errorType", "VALIDACION_ERROR",
-                        "message", "Los datos no pudieron ser registrados"
-                ));
                 return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
                         "status", "Succes",
                         "data", respuesta
                 ));
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
                     "status", "Error",
                     "message", "Error no controlado al registrar usuario",
@@ -63,7 +56,7 @@ public class LibrosController {
     ){
         if (bindingResult.hasErrors()){
             Map<String, String>errores = new HashMap<>();
-            bindingResult.getFieldErrors().forEach(error -> errores.put(error.getDefaultMessage()));
+            bindingResult.getFieldErrors().forEach(error -> errores.put(error.getField(),error.getDefaultMessage()));
 
             return ResponseEntity.badRequest().body(errores);
         }

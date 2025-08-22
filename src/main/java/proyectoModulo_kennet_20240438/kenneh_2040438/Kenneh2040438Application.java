@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Kenneh2040438Application {
 
 	public static void main(String[] args) {
+
+		Dotevn
 		SpringApplication.run(Kenneh2040438Application.class, args);
 	}
 
