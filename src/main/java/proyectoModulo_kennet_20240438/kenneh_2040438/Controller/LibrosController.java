@@ -48,7 +48,7 @@ public class LibrosController {
         }
     }
 
-    @PutMapping("PutLirbos")
+    @PutMapping("PutLibros")
     public  ResponseEntity<?> modificar(
             @PathVariable Long id,
             @Valid @RequestBody LibroDTO json,

@@ -19,11 +19,11 @@ public class LibroDTO {
     private String isbn;
 
     @NotNull
-    private int anio_publicacion;
+    private int anio_publicado;
 
     @NotNull
     private int genero;
 
     @NotNull
-    private Long id;
+    private int id;
 }

@@ -23,7 +23,6 @@ public class LibrosService {
 
     public List<LibroDTO> ObtenerLibros() {
         List<LibroEntity> Libro = repo.findAll();
-
         return Libro.stream()
                 .map(this::convertirADTO)
                 .collect(Collectors.toList());
@@ -46,21 +45,27 @@ public class LibrosService {
         ENTITY.setId_libros(json.getId_libros());
         ENTITY.setTitulo(json.getTitulo());
         ENTITY.setIsbn(json.getIsbn());
-        ENTITY.setAnio_publicacion(json.getAnio_publicacion());
+        ENTITY.setAnio_publicado(json.getAnio_publicado());
         ENTITY.setGenero(json.getGenero());
         ENTITY.setId(json.getId());
         return ENTITY;
     }
 
-    private LibroDTO convertirADTO(LibroEntity libroEntity) {
+    private LibroDTO convertirADTO(LibroEntity enty) {
         LibroDTO dto = new LibroDTO();
 
-        dto.setId_libros(libroEntity.getId_libros());
-        dto.setTitulo(libroEntity.getTitulo());
-        dto.setIsbn(libroEntity.getIsbn());
-        dto.setAnio_publicacion(libroEntity.getAnio_publicacion());
-        dto.setGenero(libroEntity.getGenero());
-        dto.setId(libroEntity.getId());
+        dto.setId_libros(enty.getId_libros());
+
+        dto.setTitulo(enty.getTitulo());
+
+        dto.setIsbn(enty.getIsbn());
+
+        dto.setAnio_publicado(enty.getAnio_publicado());
+
+        dto.setGenero(enty.getGenero());
+
+        dto.setId(enty.getId());
+
 
         return dto;
     }
@@ -85,7 +90,7 @@ public class LibrosService {
 
         existente.setTitulo(json.getTitulo());
         existente.setIsbn(json.getIsbn());
-        existente.setAnio_publicacion(json.getAnio_publicacion());
+        existente.setAnio_publicado(json.getAnio_publicado());
         existente.setGenero(json.getGenero());
         existente.setId(json.getId());
         LibroEntity actualizado = repo.save(existente);
